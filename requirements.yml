@@ -1,0 +1,7 @@
+---
+collections:
+  - name: ansible.posix
+    version: "2.2.2"
+roles:
+  - name: robertdebock.bootstrap
+    version: "7.1.7"
