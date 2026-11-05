@@ -2,6 +2,8 @@
 collections:
   - name: ansible.posix
     version: "2.2.2"
+  - name: community.general
+    version: "13.3.0"
 roles:
   - name: robertdebock.bootstrap
     version: "7.1.7"
