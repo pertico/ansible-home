@@ -1,7 +1,0 @@
----
-- name: Aprovisionamiento Inicial de Servidores
-  hosts: servers
-  # Se ejecuta inicialmente con el usuario interactivo del sistema (ej. rgm o pi)
-  roles:
-    - role: robertdebock.bootstrap
-    - role: local.setup.bootstrap

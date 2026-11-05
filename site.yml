@@ -1,7 +1,0 @@
----
-- name: Configurar servidores domésticos (Debian / Raspbian)
-  hosts: servers
-  become: true
-  roles:
-    - role: local.setup.common
-    - role: local.setup.users

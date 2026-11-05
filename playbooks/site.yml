@@ -1,0 +1,22 @@
+---
+- name: Configurar entorno WSL
+  hosts: wsl
+  collections:
+    - local.setup
+  roles:
+#   - role: local.setup.base
+#     vars:
+#       common_timezone: "Europe/Madrid"
+#   - role: local.setup.users
+    - role: local.setup.tools
+#      vars:
+#       tools_cfssl: true
+#       tools_minikube: false
+#       tools_minikube_version: "1.33.1"
+#       tools_k3d: true
+- name: Configurar servidores domésticos (Debian / Raspbian)
+  hosts: servers
+  become: true
+  roles:
+    - role: local.setup.base
+    - role: local.setup.users
