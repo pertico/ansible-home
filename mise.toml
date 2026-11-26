@@ -5,6 +5,7 @@ uv = "latest"
 [env]
 # Asegura que uv use el Python gestionado por mise y no el del sistema
 UV_PYTHON_PREFERENCE = "only-managed"
+UV_NO_INSTALL_PROJECT= "true"
 # Expone automáticamente los ejecutables del .venv en la shell al entrar al directorio
 VIRTUAL_ENV = "{{config_root}}/.venv"
 _.path = ["{{config_root}}/.venv/bin"]
