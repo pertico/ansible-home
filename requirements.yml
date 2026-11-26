@@ -7,3 +7,5 @@ collections:
 roles:
   - name: robertdebock.bootstrap
     version: "7.1.7"
+  - name: sgaunet.gh_role_installer
+    version: "2.33.3"
