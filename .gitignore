@@ -1,4 +1,5 @@
 .venv/
 *.pyc
-roles/
+roles/*
+!roles/bootstrap
 collections/ansible_collections
