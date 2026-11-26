@@ -1,0 +1,33 @@
+---
+bootstrap_ansible: true
+# Datos del usuario dedicado de automatización
+bootstrap_ansible_user: "ansible"
+bootstrap_ansible_uid: 10000
+bootstrap_ansible_group: "ansible"
+bootstrap_ansible_gid: 10000
+
+# Clave pública SSH con la que Ansible gestionará las máquinas en el futuro
+bootstrap_ansible_ssh_keys:
+  - >-
+    ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAI...
+    ansible@control-node
+
+bootstrap_puppet: false
+# Definir si se usan los paquetes nativos del Sistema Operativo (Ubuntu/Debian)
+bootstrap_puppet_use_os_packages: true
+
+# Proveedor del repositorio: "apt.puppet.com" o "apt.voxpopuli.org"
+bootstrap_puppet_repo_provider: "apt.voxpopuli.org"
+
+# Versión mayor del agente de Puppet: 6, 7, 8 o 9
+bootstrap_puppet_major_version: 8
+
+# Mapeo de URLs según el proveedor elegido
+bootstrap_puppet_repo_urls:
+  apt.puppet.com: "https://apt.puppet.com/puppet{{ bootstrap_puppet_major_version }}-release-{{ ansible_facts['distribution_release'] }}.deb"
+  apt.voxpopuli.org: "https://apt.voxpopuli.org/openvox{{ bootstrap_puppet_major_version }}-release-{{ ansible_facts['distribution_release'] }}.deb"
+
+# Nombre del paquete del agente (habitualmente "puppet-agent")
+bootstrap_puppet_agent_package: "puppet-agent"
+
+bootstrap_salt: false

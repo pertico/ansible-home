@@ -1,0 +1,16 @@
+---
+- name: Instalar el repositorio de Puppet directamente desde la URL
+  ansible.builtin.apt:
+    deb: "{{ bootstrap_puppet_repo_urls[bootstrap_puppet_repo_provider] }}"
+    state: present
+  when: not bootstrap_puppet_use_os_packages
+
+- name: Actualizar la caché de apt tras añadir el repositorio
+  ansible.builtin.apt:
+    update_cache: true
+  when: not bootstrap_puppet_use_os_packages
+
+- name: Instalar el paquete del agente de Puppet
+  ansible.builtin.apt:
+    name: "{{ bootstrap_puppet_agent_package }}"
+    state: present

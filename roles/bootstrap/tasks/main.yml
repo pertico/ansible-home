@@ -1,0 +1,12 @@
+---
+- name: Ejecutar tareas de configuración de Ansible
+  ansible.builtin.include_tasks: ansible.yml
+  when: bootstrap_ansible
+
+- name: Ejecutar tareas de configuración del agente de Puppet
+  ansible.builtin.include_tasks: puppet.yml
+  when: bootstrap_puppet
+
+- name: Ejecutar tareas de configuración de salt (minion) 
+  ansible.builtin.include_tasks: salt.yml
+  when: bootstrap_salt

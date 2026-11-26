@@ -1,0 +1,19 @@
+---
+# tasks file for salt
+- name: Check if salt was bootstrapped
+  ansible.builtin.stat:
+    path: /etc/apt/sources.list.d/salt.sources
+  register: bootstrap_salt_bootstrapped
+
+
+- name: Bootstrap salt
+  when: not bootstrap_salt_bootstrapped
+  block:
+    - name: Download bootstrap script
+      ansible.builtin.get_url:
+        url: https://github.com/saltstack/salt-bootstrap/releases/latest/download/bootstrap-salt.sh
+        dest: /tmp/bootstrap-salt.sh
+        mode: '0755'
+    - name: Running bootstrap script
+      ansible.builtin.command: /tmp/bootstrap-salt.sh
+      become: true

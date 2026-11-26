@@ -1,0 +1,47 @@
+---
+- name: Crear grupo primario para Ansible (GID 10000)
+  ansible.builtin.group:
+    name: "{{ bootstrap_ansible_group }}"
+    gid: "{{ bootstrap_ansible_gid }}"
+    state: present
+  become: true
+
+- name: Crear usuario de automatización Ansible (UID 10000)
+  ansible.builtin.user:
+    name: "{{ bootstrap_ansible_user }}"
+    uid: "{{ bootstrap_ansible_uid }}"
+    group: "{{ bootstrap_ansible_group }}"
+    comment: "Usuario para la Automatización de Ansible"
+    shell: "/bin/bash"
+    groups:
+      - sudo
+    append: true
+    state: present
+  become: true
+
+- name: Configurar sudoers sin contraseña para el usuario Ansible
+  ansible.builtin.copy:
+    dest: "/etc/sudoers.d/99-ansible-bootstrap"
+    content: "{{ bootstrap_ansible_user }} ALL=(ALL) NOPASSWD:ALL\n"
+    owner: root
+    group: root
+    mode: '0440'
+    validate: '/usr/sbin/visudo -cf %s'
+  become: true
+
+- name: Crear directorio .ssh para el usuario Ansible
+  ansible.builtin.file:
+    path: "/home/{{ bootstrap_ansible_user }}/.ssh"
+    state: directory
+    owner: "{{ bootstrap_ansible_user }}"
+    group: "{{ bootstrap_ansible_group }}"
+    mode: '0700'
+  become: true
+
+- name: Desplegar claves SSH autorizadas para el usuario Ansible
+  ansible.posix.authorized_key:
+    user: "{{ bootstrap_ansible_user }}"
+    key: "{{ item }}"
+    state: present
+  loop: "{{ bootstrap_ansible_ssh_keys }}"
+  become: true

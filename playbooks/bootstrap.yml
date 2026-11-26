@@ -1,19 +1,15 @@
 ---
 - name: Bootstrap WSL environment
   hosts: wsl
-  collections:
-    - local.setup
   roles:
-    - role: local.setup.bootstrap
+    - role: bootstrap
       vars:
         bootstrap_ansible: false
-    - role: local.setup.base
+#   - role: local.setup.base
 
 - name: Aprovisionamiento Inicial de Servidores
   hosts: servers
   # Se ejecuta inicialmente con el usuario interactivo del sistema (ej. rgm o pi)
-  collections:
-    - local.setup
   roles:
     - role: robertdebock.bootstrap
-    - role: local.setup.bootstrap
+    - role: bootstrap
