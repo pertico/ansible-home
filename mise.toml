@@ -1,0 +1,21 @@
+[tools]
+python = "3.14"
+uv = "latest"
+
+[env]
+# Asegura que uv use el Python gestionado por mise y no el del sistema
+UV_PYTHON_PREFERENCE = "only-managed"
+# Expone automáticamente los ejecutables del .venv en la shell al entrar al directorio
+VIRTUAL_ENV = "{{config_root}}/.venv"
+_.path = ["{{config_root}}/.venv/bin"]
+
+[hooks.postinstall]
+# Se ejecuta automáticamente al terminar `mise install`
+run = """
+uv sync --locked --no-install-project
+if [ -f "requirements.yml" ]; then
+  "{{config_root}}/.venv/bin/ansible-galaxy" collection install -r requirements.yml --upgrade
+  # Si tu requirements.yml incluye roles, descomenta la siguiente línea:
+   "{{config_root}}/.venv/bin/ansible-galaxy" role install -r requirements.yml --force
+fi
+"""
