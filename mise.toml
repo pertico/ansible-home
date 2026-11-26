@@ -20,6 +20,10 @@ if [ -f "requirements.yml" ]; then
    "{{config_root}}/.venv/bin/ansible-galaxy" role install -r requirements.yml
 fi
 """
+[tasks.lint]
+description = "Ejecuta ansible-lint sobre el proyecto"
+quiet = true
+run = '"{{config_root}}/.venv/bin/ansible-lint"'
 
 [hooks.postinstall]
 # Se ejecuta automáticamente al terminar `mise install`
