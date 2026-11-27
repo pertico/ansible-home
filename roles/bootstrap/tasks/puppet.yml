@@ -12,5 +12,11 @@
 
 - name: Instalar el paquete del agente de Puppet
   ansible.builtin.apt:
-    name: "{{ bootstrap_puppet_agent_package }}"
+    name: "{{ bootstrap_puppet_agent_package[bootstrap_puppet_repo_provider] }}"
     state: present
+
+- name: Instalar r10k en caso de despliegue de puppet server o masterless
+  ansible.builtin.apt:
+    name: "{{ bootstrap_r10k_package }}"
+    state: present
+  when: bootstrap_puppet_server or bootstrap_puppet_masterless

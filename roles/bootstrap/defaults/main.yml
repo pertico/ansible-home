@@ -13,11 +13,14 @@ bootstrap_ansible_ssh_keys:
     ansible@control-node
 
 bootstrap_puppet: false
+bootstrap_puppet_server: false
+bootstrap_puppet_masterless: true
+
 # Definir si se usan los paquetes nativos del Sistema Operativo (Ubuntu/Debian)
-bootstrap_puppet_use_os_packages: true
+bootstrap_puppet_use_os_packages: false
 
 # Proveedor del repositorio: "apt.puppet.com" o "apt.voxpopuli.org"
-bootstrap_puppet_repo_provider: "apt.voxpopuli.org"
+bootstrap_puppet_repo_provider: "apt.voxpupuli.org"
 
 # Versión mayor del agente de Puppet: 6, 7, 8 o 9
 bootstrap_puppet_major_version: 8
@@ -25,9 +28,13 @@ bootstrap_puppet_major_version: 8
 # Mapeo de URLs según el proveedor elegido
 bootstrap_puppet_repo_urls:
   apt.puppet.com: "https://apt.puppet.com/puppet{{ bootstrap_puppet_major_version }}-release-{{ ansible_facts['distribution_release'] }}.deb"
-  apt.voxpopuli.org: "https://apt.voxpopuli.org/openvox{{ bootstrap_puppet_major_version }}-release-{{ ansible_facts['distribution_release'] }}.deb"
+  apt.voxpupuli.org: "https://apt.voxpupuli.org/openvox{{ bootstrap_puppet_major_version }}-release-{{ ansible_facts['distribution'] | lower }}{{ ansible_facts['distribution_version'] }}.deb"
 
 # Nombre del paquete del agente (habitualmente "puppet-agent")
-bootstrap_puppet_agent_package: "puppet-agent"
+bootstrap_puppet_agent_package: 
+  apt.puppet.com: "puppet-agent"
+  apt.voxpupuli.org: "openvox-agent"
+
+bootstrap_r10k_package: "r10k"
 
 bootstrap_salt: false

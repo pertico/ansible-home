@@ -1,0 +1,3 @@
+---
+bootstrap_puppet: true
+bootstrap_puppet_masterles: true
